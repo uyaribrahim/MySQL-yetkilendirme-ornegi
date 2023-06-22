@@ -1,0 +1,26 @@
+-- Yeni bir kullanıcı oluşturma
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+
+-- Kullanıcıya tüm veritabanlarına erişim izni verme
+GRANT ALL PRIVILEGES ON *.* TO 'newuser'@'localhost';
+
+-- Kullanıcıya belirli bir veritabanına erişim izni verme
+GRANT ALL PRIVILEGES ON database_name.* TO 'newuser'@'localhost';
+
+-- Sadece belirli bir tabloya erişim izni verme
+GRANT SELECT, INSERT, UPDATE ON database_name.table_name TO 'newuser'@'localhost';
+
+-- Kullanıcının sadece SELECT işlemi yapabilmesi
+GRANT SELECT ON database_name.* TO 'newuser'@'localhost';
+
+-- Kullanıcının tüm veritabanlarındaki tablolara erişim izni verme
+GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'newuser'@'localhost';
+
+-- Kullanıcının şifresini güncelleme
+ALTER USER 'newuser'@'localhost' IDENTIFIED BY 'new_password';
+
+-- Kullanıcı yetkilerini kaldırma
+REVOKE ALL PRIVILEGES ON *.* FROM 'newuser'@'localhost';
+
+-- Kullanıcıyı silme
+DROP USER 'newuser'@'localhost';
