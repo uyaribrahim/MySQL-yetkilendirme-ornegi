@@ -24,3 +24,29 @@ REVOKE ALL PRIVILEGES ON *.* FROM 'newuser'@'localhost';
 
 -- Kullanıcıyı silme
 DROP USER 'newuser'@'localhost';
+
+-- PROSEDÜR
+-- Bu prosedür, kullanıcı tablosundaki tüm verileri döndüren bir sorguyu içerir
+DELIMITER //
+
+CREATE PROCEDURE kullanici_listele()
+BEGIN
+  SELECT * FROM kullanici;
+END //
+
+DELIMITER ;
+
+-- Prosedürü kullanmak için aşağıdaki sorgu
+CALL kullanici_listele();
+
+--TRIGGER
+-- "users" tablosu her güncellendiğinde (AFTER UPDATE) çalışacak
+DELIMITER //
+CREATE TRIGGER users_update_trigger
+AFTER UPDATE ON users
+FOR EACH ROW
+BEGIN
+    INSERT INTO revisions (user_id, name, age)
+    VALUES (OLD.id, OLD.name, OLD.age);
+END//
+DELIMITER ;
